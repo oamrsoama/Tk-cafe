@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On T.K — كافيه شبين الكوم</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c6a357;
+    --gold-light: #d4b368;
+    --bg: #0d0b08;
+    --bg2: #141009;
+    --text: #f0e8d8;
+    --muted: #9a8a70;
+    --faint: #6b5f4d;
+    --border: rgba(198,163,87,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    direction: rtl;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 999;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 3rem;
+    background: rgba(13,11,8,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); letter-spacing: 3px; text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); font-size: 13px; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-reserve {
+    background: transparent; border: 0.5px solid var(--gold);
+    color: var(--gold); padding: 8px 20px; font-family: 'Cairo', sans-serif;
+    font-size: 13px; cursor: pointer; letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .nav-reserve:hover { background: var(--gold); color: var(--bg); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding-top: 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 80%, rgba(198,163,87,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse at top, #1a1208 0%, #0d0b08 50%);
+  }
+  .hero-watermark {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 260px; font-weight: 700;
+    color: rgba(198,163,87,0.03);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    white-space: nowrap; pointer-events: none; user-select: none;
+    letter-spacing: 20px;
+  }
+  .hero-content { text-align: center; position: relative; z-index: 2; padding: 2rem; max-width: 700px; }
+  .open-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 100px;
+    border: 0.5px solid rgba(76,175,80,0.4);
+    font-size: 12px; color: #6fcf73; margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+  }
+  .pulse { width: 7px; height: 7px; background: #6fcf73; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-eyebrow { font-size: 11px; letter-spacing: 5px; color: var(--gold); margin-bottom: 1rem; text-transform: uppercase; font-weight: 300; }
+  h1.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(64px, 10vw, 96px);
+    font-weight: 700; color: var(--text); line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .hero-tagline { font-size: 17px; color: var(--muted); font-weight: 300; letter-spacing: 1px; margin-bottom: 2rem; }
+
+  .rating-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(198,163,87,0.08);
+    border: 0.5px solid rgba(198,163,87,0.3);
+    padding: 10px 24px; margin-bottom: 2.5rem;
+    font-size: 14px; color: var(--gold);
+  }
+  .stars-gold { letter-spacing: 2px; }
+
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--bg);
+    padding: 14px 40px; font-family: 'Cairo', sans-serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 1px;
+    border: none; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-outline {
+    background: transparent; color: var(--gold);
+    padding: 14px 40px; font-family: 'Cairo', sans-serif;
+    font-size: 14px; font-weight: 400; letter-spacing: 1px;
+    border: 0.5px solid var(--border); cursor: pointer; text-decoration: none;
+    display: inline-block; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 11px; color: var(--faint); letter-spacing: 3px; text-transform: uppercase;
+    animation: bob 2.5s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+  .scroll-line { width: 0.5px; height: 40px; background: linear-gradient(var(--gold), transparent); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 7rem 3rem; max-width: 1100px; margin: 0 auto; }
+  .section-full { padding: 7rem 3rem; }
+
+  .label { font-size: 11px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; font-weight: 300; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 44px); color: var(--text); margin-bottom: 0.5rem; }
+  .gold-rule { width: 40px; height: 1px; background: var(--gold); margin-bottom: 2.5rem; }
+
+  .divider { border: none; border-top: 0.5px solid var(--border); }
+
+  /* ── ABOUT ── */
+  .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-text { font-size: 16px; color: var(--muted); line-height: 2; font-weight: 300; margin-bottom: 1.5rem; }
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .stat-box { border: 0.5px solid var(--border); padding: 1.5rem; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--gold); display: block; }
+  .stat-label { font-size: 11px; color: var(--faint); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; display: block; }
+
+  .about-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .ring-outer {
+    width: 320px; height: 320px; border-radius: 50%;
+    border: 0.5px solid rgba(198,163,87,0.25);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .ring-inner {
+    width: 240px; height: 240px; border-radius: 50%;
+    border: 0.5px solid rgba(198,163,87,0.12);
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(198,163,87,0.03);
+  }
+  .coffee-icon { font-size: 90px; }
+
+  /* ── MENU ── */
+  .menu-bg { background: var(--bg2); }
+  .menu-inner { max-width: 1100px; margin: 0 auto; }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); }
+  .menu-cat { background: var(--bg2); padding: 2rem; }
+  .menu-cat-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 0.5px solid var(--border); }
+  .menu-cat-icon { font-size: 20px; }
+  .menu-cat-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold); }
+  .menu-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 0.5px solid rgba(198,163,87,0.07); }
+  .menu-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .item-info { flex: 1; }
+  .item-name { font-size: 14px; color: var(--text); font-weight: 400; margin-bottom: 3px; }
+  .item-desc { font-size: 12px; color: var(--faint); }
+  .item-price { font-size: 14px; color: var(--gold); white-space: nowrap; padding-right: 12px; font-weight: 600; }
+
+  /* ── AMBIANCE ── */
+  .ambiance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .ambiance-card {
+    background: var(--bg); padding: 3rem 2rem;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
+    transition: background 0.3s;
+  }
+  .ambiance-card:hover { background: rgba(198,163,87,0.04); }
+  .ambiance-num { font-family: 'Playfair Display', serif; font-size: 48px; color: rgba(198,163,87,0.2); line-height: 1; }
+  .ambiance-title { font-size: 18px; color: var(--text); font-weight: 600; }
+  .ambiance-body { font-size: 14px; color: var(--faint); line-height: 1.8; }
+
+  /* ── REVIEWS ── */
+  .reviews-bg { background: var(--bg2); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .review-card { background: rgba(255,255,255,0.02); border: 0.5px solid var(--border); padding: 1.75rem; transition: border-color 0.2s; }
+  .review-card:hover { border-color: rgba(198,163,87,0.4); }
+  .review-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 1rem; }
+  .review-text { font-size: 15px; color: var(--muted); line-height: 1.85; font-style: italic; margin-bottom: 1.25rem; }
+  .review-meta { display: flex; align-items: center; gap: 10px; }
+  .review-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(198,163,87,0.15); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--gold); font-weight: 600; }
+  .review-author { font-size: 12px; color: var(--faint); letter-spacing: 1px; }
+
+  /* ── EVENTS ── */
+  .events-list { display: flex; flex-direction: column; gap: 0; border: 0.5px solid var(--border); }
+  .event-row {
+    display: flex; align-items: center; gap: 2rem;
+    padding: 1.5rem 2rem;
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.2s;
+  }
+  .event-row:last-child { border-bottom: none; }
+  .event-row:hover { background: rgba(198,163,87,0.03); }
+  .event-day { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); min-width: 50px; text-align: center; }
+  .event-month { font-size: 11px; color: var(--faint); letter-spacing: 2px; text-transform: uppercase; text-align: center; }
+  .event-divider { width: 0.5px; height: 40px; background: var(--border); }
+  .event-name { font-size: 17px; color: var(--text); flex: 1; }
+  .event-type { font-size: 11px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; border: 0.5px solid rgba(198,163,87,0.3); padding: 4px 12px; }
+
+  /* ── CONTACT ── */
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-items { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+  .contact-icon { width: 44px; height: 44px; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 18px; flex-shrink: 0; }
+  .contact-label { font-size: 11px; color: var(--faint); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
+  .contact-value { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+  .map-placeholder {
+    background: rgba(198,163,87,0.04);
+    border: 0.5px solid var(--border);
+    height: 280px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1rem;
+    color: var(--faint);
+  }
+  .map-pin { font-size: 36px; }
+  .map-text { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem;
+    border-top: 0.5px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold); letter-spacing: 4px; }
+  .footer-tag { font-size: 11px; color: var(--faint); letter-spacing: 3px; margin-top: 4px; }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-size: 12px; color: var(--faint); text-decoration: none; letter-spacing: 1px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .section, .section-full { padding: 4rem 1.5rem; }
+    .about-layout, .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .about-visual { display: none; }
+    .ambiance-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: center; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">On T.K</a>
+  <ul class="nav-links">
+    <li><a href="#about">عن الكافيه</a></li>
+    <li><a href="#menu">المنيو</a></li>
+    <li><a href="#events">الفعاليات</a></li>
+    <li><a href="#reviews">آراء الزباين</a></li>
+    <li><a href="#contact">تواصل</a></li>
+  </ul>
+  <button class="nav-reserve" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">احجز طاولة</button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">TK</div>
+  <div class="hero-content">
+    <div class="open-pill">
+      <span class="pulse"></span>
+      مفتوح دلوقتي · يغلق 1 صباحاً
+    </div>
+    <p class="hero-eyebrow">كافيه · شبين الكوم · المنوفية</p>
+    <h1 class="hero-title">On T.K</h1>
+    <p class="hero-tagline">المكان اللي بيجمع الناس</p>
+    <div class="rating-badge">
+      <span class="stars-gold">★★★★</span>
+      <span>4.1 من 5 — 92 تقييم على جوجل</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#menu">شوف المنيو</a>
+      <a class="btn-outline" href="#contact">احجز طاولة</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>اكتشف</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section">
+    <div class="about-layout">
+      <div>
+        <p class="label">من نحن</p>
+        <h2 class="section-title">لأصحاب الذوق الرفيع</h2>
+        <div class="gold-rule"></div>
+        <p class="about-text">
+          On T.K كافيه متميز في قلب شبين الكوم، بيقدم أجواء دافية وقهوة مختارة بعناية. المكان المثالي للأصحاب، للشغل، أو مجرد وقت هادي بعيد عن الضوضاء.
+        </p>
+        <p class="about-text">
+          بنقدم كل أسبوع حفلات موسيقية متنوعة — نوبي، كلاسيكي، وعربي — لأن الموسيقى والقهوة لازم يتكاملوا.
+        </p>
+        <div class="stats-grid">
+          <div class="stat-box"><span class="stat-num">92</span><span class="stat-label">تقييم جوجل</span></div>
+          <div class="stat-box"><span class="stat-num">4.1</span><span class="stat-label">متوسط النجوم</span></div>
+          <div class="stat-box"><span class="stat-num">$$</span><span class="stat-label">أسعار معقولة</span></div>
+          <div class="stat-box"><span class="stat-num">1AM</span><span class="stat-label">آخر موعد</span></div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="ring-outer">
+          <div class="ring-inner">
+            <span class="coffee-icon">☕</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- AMBIANCE -->
+<div class="section-full">
+  <div class="section" style="padding-bottom: 0; padding-top: 0; max-width: 1100px;">
+    <p class="label">الأجواء</p>
+    <h2 class="section-title">ليه On T.K؟</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 3rem;">
+    <div class="ambiance-grid">
+      <div class="ambiance-card">
+        <div class="ambiance-num">01</div>
+        <div class="ambiance-title">Latte Art حقيقي</div>
+        <div class="ambiance-body">قهوتك بتتعمل بأسلوب فني مميز — مش بس مشروب، دي تجربة بصرية وحسية كاملة.</div>
+      </div>
+      <div class="ambiance-card">
+        <div class="ambiance-num">02</div>
+        <div class="ambiance-title">موسيقى أسبوعية</div>
+        <div class="ambiance-body">حفلات نوبي وكلاسيكي وعربي كل أسبوع — المكان مش بس كافيه، ده تجربة ثقافية.</div>
+      </div>
+      <div class="ambiance-card">
+        <div class="ambiance-num">03</div>
+        <div class="ambiance-title">جو دافي ومريح</div>
+        <div class="ambiance-body">تصميم داخلي يريح العين، إضاءة مناسبة، ومكان مثالي سواء جيت لوحدك أو مع أصحابك.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" style="margin-top: 4rem;">
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-bg section-full">
+    <div class="menu-inner section" style="max-width: 1100px;">
+      <p class="label">ما نقدمه</p>
+      <h2 class="section-title">المنيو</h2>
+      <div class="gold-rule"></div>
+    </div>
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0 3rem 4rem;">
+      <div class="menu-grid">
+        <div class="menu-cat">
+          <div class="menu-cat-header">
+            <span class="menu-cat-icon">☕</span>
+            <span class="menu-cat-title">قهوة ساخنة</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Espresso</div><div class="item-desc">شات مركز وقوي</div></div><div class="item-price">25 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Americano</div><div class="item-desc">إسبريسو مع ماء ساخن</div></div><div class="item-price">35 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Cappuccino</div><div class="item-desc">قهوة مع رغوة الحليب</div></div><div class="item-price">45 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Latte Art</div><div class="item-desc">رسم فني على القهوة</div></div><div class="item-price">55 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">V60 Filter</div><div class="item-desc">قهوة مفلترة يدوية</div></div><div class="item-price">60 جنيه</div></div>
+        </div>
+        <div class="menu-cat">
+          <div class="menu-cat-header">
+            <span class="menu-cat-icon">🧊</span>
+            <span class="menu-cat-title">مشروبات باردة</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Cold Brew</div><div class="item-desc">قهوة مقطرة على بارد</div></div><div class="item-price">65 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Iced Latte</div><div class="item-desc">لاتيه مثلج</div></div><div class="item-price">55 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Frappe</div><div class="item-desc">مخفوق بالثلج والقشطة</div></div><div class="item-price">60 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Mojito</div><div class="item-desc">نعناع وليمون طازج</div></div><div class="item-price">50 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Milkshake</div><div class="item-desc">شوكولاتة أو فانيليا</div></div><div class="item-price">65 جنيه</div></div>
+        </div>
+        <div class="menu-cat">
+          <div class="menu-cat-header">
+            <span class="menu-cat-icon">🍰</span>
+            <span class="menu-cat-title">أكل وتحلية</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Cheesecake</div><div class="item-desc">بالتوت الأحمر</div></div><div class="item-price">70 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Waffle</div><div class="item-desc">مع عسل وكريمة</div></div><div class="item-price">75 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Croissant</div><div class="item-desc">زبدة فرنسي</div></div><div class="item-price">35 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Avocado Toast</div><div class="item-desc">مع بيض وبهارات</div></div><div class="item-price">85 جنيه</div></div>
+          <div class="menu-item"><div class="item-info"><div class="item-name">Club Sandwich</div><div class="item-desc">دجاج وخضار طازج</div></div><div class="item-price">95 جنيه</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="section">
+    <p class="label">كل أسبوع</p>
+    <h2 class="section-title">الفعاليات القادمة</h2>
+    <div class="gold-rule"></div>
+    <div class="events-list">
+      <div class="event-row">
+        <div><div class="event-day">12</div><div class="event-month">يونيو</div></div>
+        <div class="event-divider"></div>
+        <div class="event-name">حفلة موسيقى نوبية — الفنان عمر خيري</div>
+        <span class="event-type">نوبي</span>
+      </div>
+      <div class="event-row">
+        <div><div class="event-day">17</div><div class="event-month">يونيو</div></div>
+        <div class="event-divider"></div>
+        <div class="event-name">ليلة كلاسيكية — قصائد وألحان</div>
+        <span class="event-type">كلاسيكي</span>
+      </div>
+      <div class="event-row">
+        <div><div class="event-day">24</div><div class="event-month">يونيو</div></div>
+        <div class="event-divider"></div>
+        <div class="event-name">حفلة طرب عربي أصيل</div>
+        <span class="event-type">عربي</span>
+      </div>
+      <div class="event-row">
+        <div><div class="event-day">01</div><div class="event-month">يوليو</div></div>
+        <div class="event-divider"></div>
+        <div class="event-name">سهرة جاز وقهوة مختصة</div>
+        <span class="event-type">جاز</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-bg section-full">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 5rem 3rem 4rem;">
+      <p class="label">آراء الزباين</p>
+      <h2 class="section-title">بيقولوا إيه عنا</h2>
+      <div class="gold-rule"></div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"المكان ده حلو جداً لأصحاب الذوق، والقهوة بتتعمل بأسلوب فني مميز جداً."</p>
+          <div class="review-meta">
+            <div class="review-avatar">س</div>
+            <div class="review-author">سامح نور · دليل محلي</div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★</div>
+          <p class="review-text">"مكان جيد جداً لأصحاب الذوق الرفيع، الأجواء مريحة جداً والخدمة ممتازة."</p>
+          <div class="review-meta">
+            <div class="review-avatar">أ</div>
+            <div class="review-author">أحمد حمدي · زبون دايم</div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"أفضل كافيه في شبين الكوم، الجو دافي ومريح والقهوة بتتحدى الكافيهات الكبيرة."</p>
+          <div class="review-meta">
+            <div class="review-avatar">م</div>
+            <div class="review-author">من جوجل مابس</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section">
+    <p class="label">وصّلنا</p>
+    <h2 class="section-title">تواصل معنا</h2>
+    <div class="gold-rule"></div>
+    <div class="contact-layout">
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">العنوان</div>
+            <div class="contact-value">H294+9R7، شارع أنور السادات<br>شبين الكوم، المنوفية 6131533</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">تليفون / واتساب</div>
+            <div class="contact-value">011 44337722</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="contact-label">مواعيد العمل</div>
+            <div class="contact-value">كل أيام الأسبوع<br>6:00 صباحاً — 1:00 صباحاً</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🍽️</div>
+          <div>
+            <div class="contact-label">الخدمة</div>
+            <div class="contact-value">جلوس داخلي · تيك أواي<br>حجز مسبق للمجموعات</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="map-placeholder">
+          <div class="map-pin">📍</div>
+          <div class="map-text">شبين الكوم — المنوفية</div>
+          <a href="https://maps.google.com/?q=On+T.K+Shibin+el+Kom" target="_blank" class="btn-outline" style="font-size: 12px; padding: 10px 24px; margin-top: 0.5rem; display: inline-block;">افتح في جوجل مابس</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">On T.K</div>
+    <div class="footer-tag">SHIBIN EL KOM · MENOFIA GOVERNORATE</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">عن الكافيه</a></li>
+    <li><a href="#menu">المنيو</a></li>
+    <li><a href="#events">الفعاليات</a></li>
+    <li><a href="#reviews">التقييمات</a></li>
+    <li><a href="#contact">تواصل</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
